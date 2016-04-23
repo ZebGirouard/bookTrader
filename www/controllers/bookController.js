@@ -1,25 +1,10 @@
 app = angular.module('bookTradingApp', []);
-app.controller('bookController', function($scope) {
+app.controller('bookController', function($scope, $http) {
 
         var socket = io.connect();
 
-        $scope.messages = [];
-        $scope.roster = [];
-        $scope.name = '';
-        $scope.text = '';
-
-        socket.on('connect', function () {
-          $scope.setName();
-        });
-
         socket.on('message', function (msg) {
-          $scope.messages.push(msg);
-          $scope.$apply();
-        });
-
-        socket.on('roster', function (names) {
-          $scope.roster = names;
-          $scope.$apply();
+          console.log(msg);
         });
 
         $scope.send = function send() {
@@ -27,8 +12,13 @@ app.controller('bookController', function($scope) {
           socket.emit('message', $scope.text);
           $scope.text = '';
         };
-
-        $scope.setName = function setName() {
-          socket.emit('identify', $scope.name);
+        
+        $scope.addBook = function(bookTitle) {
+          console.log(bookTitle);
+        
+          $http.post('/api/newBook/'+bookTitle)
+          .then(function(response) {
+            console.log(response);
+          });
         };
 });
