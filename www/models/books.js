@@ -4,8 +4,16 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
     
 var Book = new Schema({
-    name: String,
-    img_src: String,
+    volumeInfo: {
+        title: String,
+        authors: Array,
+        imageLinks: {
+            smallThumbnail: String,
+            thumbnail: String
+        }
+    },
+    addedBy: String,
+    description: String,
     requester: String,
     provider: String
 });

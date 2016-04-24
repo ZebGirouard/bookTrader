@@ -1,4 +1,21 @@
-app = angular.module('bookTradingApp', []);
+app = angular.module('bookTradingApp', ['ngRoute']);
+app.config(['$routeProvider', '$locationProvider',
+  function($routeProvider, $locationProvider) {
+    $routeProvider
+      .when('/', {
+        templateUrl: 'templates/browse.html',
+        controller: 'bookController'
+      })
+      .when('/add', {
+        templateUrl: 'templates/add.html',
+        controller: 'bookController'
+      });
+
+    $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false
+    });
+}]);
 app.controller('bookController', function($scope, $http) {
 
         var socket = io.connect();
@@ -13,12 +30,17 @@ app.controller('bookController', function($scope, $http) {
           $scope.text = '';
         };
         
-        $scope.addBook = function(bookTitle) {
-          console.log(bookTitle);
-        
-          $http.post('/api/newBook/'+bookTitle)
+        $scope.addBook = function(bookTitle,userName) {
+          $http.post('/api/newBook/'+bookTitle+'/'+userName)
           .then(function(response) {
             console.log(response);
           });
         };
+        
+        $scope.getBooks = function() {
+          $http.get('/api/books')
+          .then(function(response) {
+            $scope.books = response.data;
+          })
+        }
 });

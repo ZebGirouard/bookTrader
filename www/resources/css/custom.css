@@ -1,0 +1,20 @@
+.bookCover {
+    display: inline-block;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 3px;
+    margin: 3px;
+}
+
+.inner-button {
+    vertical-align: top;
+    margin-left: -96px;
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .9;
+}

@@ -10,6 +10,9 @@ module.exports = function (router) {
             res.sendFile(path + 'index.html');
         });
         
-    router.route('/api/newBook/:bookName')
+    router.route('/api/newBook/:bookName/:userName')
         .post(bookHandler.addBook);
+
+    router.route('/api/books')
+        .get(bookHandler.getBooks);    
 };

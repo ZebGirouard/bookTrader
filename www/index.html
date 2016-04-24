@@ -5,18 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="/resources/css/custom.css">
     <style>
       body {
         padding-top: 60px;
       }
+      .relative {
+        position: relative;
+      }
     </style>
   </head>
-  <body>
-    <div class="container" ng-controller="bookController">
+  <body ng-controller="bookController">
+    <div class="container">
       <div class="navbar navbar-fixed-top navbar-inverse">
         <div class="navbar-inner">
           <div class="pull-right">
-            <a href="http://codepen.io/ZebGirouard/full/YXbYwb/" class="brand">by Zeb Girouard</a>
+            <ul class="nav navbar-nav">
+              <li><a href='/'>Browse All</a></li>
+              <li><a href='/add'>Add Book</a></li>
+              <li><a href='/request'>Request Trade</a></li>
+              <li><a href='/accept'>Accept Trade </a></li>           
+              <li><a href="http://codepen.io/ZebGirouard/full/YXbYwb/" class="brand">by Zeb Girouard</a></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -25,36 +35,15 @@
       </div>
       <div class="row">
         <div class="span9">
-          <table class="table table-striped table-bordered">
-            <thead>
-              <tr>
-                <th class="span2">Name</th>
-                <th class="span7">Book</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="book in books">
-                <td class="span2" ng-bind="userName"></td>
-                <td class="span7" ng-bind="bookTitle"></td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="row controls">
-            <form ng-submit="addBook(bookTitle)">
-              <div class="span2"><input type="text" class="input-block-level" ng-model="userName" ng-change="setName()" placeholder="Your Name"></div>
-              <div class="input-append span7">
-                <input type="text" class="span6" ng-model="bookTitle" placeholder="Book Title">
-                <input type="submit" class="span1 btn btn-primary" value="Add" ng-disabled="!bookTitle">
-              </div>
-            </form>
-          </div>
+          <div ng-view>
         </div>
       </div>
     </div>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="/resources/js/jquery.min.js"></script>
     <script src="/resources/js/bootstrap.min.js"></script>
-    <script src="/resources/js/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
     <script src="/controllers/bookController.js"></script>
   </body>
 </html>
