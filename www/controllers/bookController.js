@@ -135,6 +135,8 @@ app.controller('bookController', function($scope, $http, $location, Authenticati
         };
         
         $scope.signUp = function(user) {
+          console.log(user);
+          console.log("Testytest");
           Authentication.register(user)    
           .error(function(err){
             alert(err);
