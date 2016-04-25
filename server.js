@@ -8,7 +8,7 @@ var http = require('http'),
   bodyParser = require('body-parser'),
   passport = require('passport');
   
-require('dotenv').load();
+//require('dotenv').load();
 var routes = require('./www/routes/index.js');
 require('./www/config/passport');
 var mongoURI = process.env.MONGODB_URI || process.env.MONGO_URI;
