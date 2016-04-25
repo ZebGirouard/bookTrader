@@ -14,8 +14,7 @@ var Book = new Schema({
     },
     addedBy: String,
     description: String,
-    requester: String,
-    provider: String
+    requester: String
 });
 
 module.exports = mongoose.model('Book', Book);

@@ -15,16 +15,18 @@
       }
     </style>
   </head>
-  <body ng-controller="bookController">
+  <body ng-controller="bookController" ng-init="initSite()">
     <div class="container">
       <div class="navbar navbar-fixed-top navbar-inverse">
         <div class="navbar-inner">
           <div class="pull-right">
             <ul class="nav navbar-nav">
-              <li><a href='/'>Browse All</a></li>
-              <li><a href='/add'>Add Book</a></li>
-              <li><a href='/request'>Request Trade</a></li>
-              <li><a href='/accept'>Accept Trade </a></li>           
+              <li><a href='/'>All Books</a></li>
+              <li><a href='/myBooks'>My Books</a></li>
+              <li ng-hide="isLoggedIn"><a href='/signup'>Sign Up</a></li>
+              <li ng-hide="isLoggedIn"><a href='/login'>Log In</a></li>
+              <li ng-show="isLoggedIn"><a href='/profile'>Profile</a></li>
+              <li ng-show="isLoggedIn"><a ng-click="logOut()">Log Out</a></li>
               <li><a href="http://codepen.io/ZebGirouard/full/YXbYwb/" class="brand">by Zeb Girouard</a></li>
             </ul>
           </div>

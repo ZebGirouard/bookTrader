@@ -1,4 +1,5 @@
 .bookCover {
+    vertical-align: top;
     display: inline-block;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -8,7 +9,7 @@
 
 .inner-button {
     vertical-align: top;
-    margin-left: -96px;
+    margin-left: -83px;
     float: right;
     font-size: 21px;
     font-weight: 700;

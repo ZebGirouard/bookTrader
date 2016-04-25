@@ -8,10 +8,12 @@ var http = require('http'),
   mongoose = require("mongoose"),
   socketio = require('socket.io'),
   express = require('express'),
-  routes = require('./www/routes/index.js');
-
+  bodyParser = require('body-parser'),
+  passport = require('passport');
+  
 require('dotenv').load();
-
+var routes = require('./www/routes/index.js');
+require('./www/config/passport');
 var mongoURI = process.env.MONGODB_URI || process.env.MONGO_URI;
 
 mongoose.connect(mongoURI);
@@ -25,6 +27,8 @@ mongoose.connect(mongoURI);
 var router = express();
 
 router.use(express.static(path.resolve(__dirname, 'www')));
+router.use(bodyParser());
+router.use(passport.initialize());
 routes(router);
 
 var server = http.createServer(router);

@@ -1,7 +1,6 @@
 'use strict';
 
 var Books = require('../models/books.js');
-var Users = require('../models/users.js');
 var https = require('https');
 
 function BookHandler() {
@@ -10,9 +9,8 @@ function BookHandler() {
 		var bookName = req.params.bookName;
 		var userName = req.params.userName;
 		console.log(req.params);
-		//Check if stock already in chart list
-		//Need to change this to book ID vs book name
-		Books.findOne({title: bookName})
+		//Check if book already in given user's list
+		Books.findOne({title: bookName, addedBy: userName})
 		.exec(function (err, result) {
 			if (err) { throw err; }
 			if (result) {
@@ -60,12 +58,31 @@ function BookHandler() {
 		});
 	};    
 	
-	this.getBooks = function(req,res) {
-		Books.find()
+	this.requestBook = function(req, res) {
+		var requesterEmail = req.params.userEmail;
+		var bookId = req.params.bookId;
+		Books.findOneAndUpdate({_id: bookId}, {$set: {"requester": requesterEmail}}, {new: true})
 		.exec(function (err, result) {
 			if (err) { throw err; }
 			res.json(result);						
-		});
+		});	
+	};
+	
+	this.getBooks = function(req,res) {
+		if (req.params.user === "undefined") {
+			Books.find()
+			.exec(function (err, result) {
+				if (err) { throw err; }
+				res.json(result);						
+			});			
+		}
+		else {
+			Books.find({addedBy: req.params.user})
+			.exec(function (err, result) {
+				if (err) { throw err; }
+				res.json(result);						
+			});				
+		}
 	};
 }
 
