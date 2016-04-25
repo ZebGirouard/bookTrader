@@ -96,25 +96,13 @@ app.controller('bookController', function($scope, $http, $location, Authenticati
         });
         
         $scope.initSite = function() {
-          var socket = io.connect();
           var credentials = {
             email : "",
             password : ""
           };
-  
-          socket.on('message', function (msg) {
-            console.log(msg);
-          });   
           $scope.setStatus();
         };
 
-/*
-        $scope.send = function send() {
-          console.log('Sending message:', $scope.text);
-          socket.emit('message', $scope.text);
-          $scope.text = '';
-        };
-*/        
         $scope.addBook = function(bookTitle,userName) {
           $http.post('/api/newBook/'+bookTitle+'/'+userName)
           .then(function(response) {
