@@ -24,7 +24,10 @@ module.exports = function (router) {
     router.route('/api/requestBook/:bookId/:userEmail')
         .post(bookHandler.requestBook);
 
-    router.route('/api/books/:user')
+    router.route('/api/acceptTrade/:bookId')
+        .post(bookHandler.acceptTrade);
+
+    router.route('/api/books')
         .get(bookHandler.getBooks);    
     
     router.route('/api/signup')

@@ -13,7 +13,7 @@ var Book = new Schema({
         }
     },
     addedBy: String,
-    description: String,
+    accepted: Boolean,
     requester: String
 });
 

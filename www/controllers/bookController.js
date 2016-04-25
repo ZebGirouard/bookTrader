@@ -119,11 +119,10 @@ app.controller('bookController', function($scope, $http, $location, Authenticati
           });
         };
         
-        $scope.getBooks = function(user) {
-          $http.get('/api/books/'+user)
+        $scope.getBooks = function() {
+          $http.get('/api/books')
           .then(function(response) {
             $scope.books = response.data;
-            console.log($scope.books);
           });
         };
 
@@ -131,6 +130,14 @@ app.controller('bookController', function($scope, $http, $location, Authenticati
           console.log(book);
           console.log(user);
           $http.post('/api/requestBook/'+book._id+'/'+user.email)
+          .then(function(response) {
+            console.log(response.data);
+          });
+        };
+
+        $scope.acceptTrade = function(book) {
+          console.log(book);
+          $http.post('/api/acceptTrade/'+book._id)
           .then(function(response) {
             console.log(response.data);
           });

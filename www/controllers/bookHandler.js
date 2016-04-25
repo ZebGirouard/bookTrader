@@ -67,22 +67,23 @@ function BookHandler() {
 			res.json(result);						
 		});	
 	};
+
+	this.acceptTrade = function(req, res) {
+		var bookId = req.params.bookId;
+		Books.findOneAndUpdate({_id: bookId}, {$set: {"accepted": true}}, {new: true})
+		.exec(function (err, result) {
+			if (err) { throw err; }
+			console.log(result);
+			res.json(result);						
+		});	
+	};
 	
 	this.getBooks = function(req,res) {
-		if (req.params.user === "undefined") {
-			Books.find()
-			.exec(function (err, result) {
-				if (err) { throw err; }
-				res.json(result);						
-			});			
-		}
-		else {
-			Books.find({addedBy: req.params.user})
-			.exec(function (err, result) {
-				if (err) { throw err; }
-				res.json(result);						
-			});				
-		}
+		Books.find()
+		.exec(function (err, result) {
+			if (err) { throw err; }
+			res.json(result);						
+		});
 	};
 }
 
