@@ -13,9 +13,9 @@ var auth = jwt({
 module.exports = function (router) {
     var bookHandler = new BookHandler();
     var userHandler = new UserHandler();
-    router.route('/')
+    router.route('/:var(signup|login|myBooks|profile)?')
         .get(function(req, res) {
-            res.sendFile(path + 'index.html');
+            res.sendFile(path + '/www/index.html');
         });
         
     router.route('/api/newBook/:bookName/:userName')
