@@ -11,7 +11,10 @@ var User = new Schema({
         required: true
     },
     hash: String,
-    salt: String
+    salt: String,
+    name: String,
+    city: String,
+    state: String
 });
 
 User.methods.setPassword = function(password){

@@ -29,6 +29,13 @@ var router = express();
 router.use(express.static(path.resolve(__dirname, 'www')));
 router.use(bodyParser());
 router.use(passport.initialize());
+// Catch unauthorised errors
+router.use(function (err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401);
+    res.json({"message" : err.name + ": " + err.message});
+  }
+});
 routes(router);
 
 var server = http.createServer(router);

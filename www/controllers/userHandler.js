@@ -55,6 +55,27 @@ function UserHandler() {
 	    }
 	  })(req, res);
 	};	
+
+	this.profileRead = function(req, res) {
+		var currentEmail = req.params.email;
+	    User
+	      .findOne({email: currentEmail})
+	      .exec(function(err, user) {
+	      	if (err) {throw err}
+	        res.json(user);
+	      });
+	};	
+	
+	this.profileSave = function(req, res) {
+		var user = req.body;
+		var oldEmail = req.params.email;
+		User.findOneAndUpdate({email: oldEmail}, {$set: {"email": user.email, "name": user.name, "city": user.city, "state": user.state}}, {new: true})
+		.exec(function (err, result) {
+			if (err) { throw err; }
+			console.log(result);
+			res.json(result);						
+		});
+	};
 }
 
 module.exports = UserHandler;

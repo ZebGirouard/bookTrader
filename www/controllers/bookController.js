@@ -14,6 +14,9 @@ app.config(['$routeProvider', '$locationProvider',
       .when('/myBooks', {
         templateUrl: 'templates/myBooks.html'
       })
+      .when('/profile', {
+        templateUrl: 'templates/profile.html'
+      })      
       .otherwise({redirectTo: '/'});
 
     $locationProvider.html5Mode({
@@ -67,7 +70,7 @@ app.factory('Authentication', function($http, $window) {
     
     var authenticate = function(user) {
       return $http.post('/api/login', user);
-    };
+    };    
     
     return {
       saveToken : saveToken,
@@ -184,4 +187,19 @@ app.controller('bookController', function($scope, $http, $location, Authenticati
           $scope.setStatus();
         };
         
+        $scope.loadProfile = function () {
+          $http.get('/api/profile/'+$scope.currentUser.email)
+          .then(function(response) {
+            console.log(response);
+            $scope.user = response.data;
+          });
+        };
+        
+        $scope.saveProfile = function () {
+          $http.post('/api/profile/'+$scope.currentUser.email, $scope.user)
+          .then(function(response) {
+            console.log(response);
+            $scope.user = response.data;
+          });
+        };        
 });

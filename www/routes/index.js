@@ -29,6 +29,10 @@ module.exports = function (router) {
 
     router.route('/api/books')
         .get(bookHandler.getBooks);    
+
+    router.route('/api/profile/:email')
+        .get(userHandler.profileRead) 
+        .post(userHandler.profileSave);
     
     router.route('/api/signup')
         .post(userHandler.signUp); 
