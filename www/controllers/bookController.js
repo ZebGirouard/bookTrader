@@ -96,11 +96,8 @@ app.controller('bookController', function($scope, $http, $location, Authenticati
         });
         
         $scope.initSite = function() {
-          var credentials = {
-            email : "",
-            password : ""
-          };
           $scope.setStatus();
+          $scope.users = [];
         };
 
         $scope.addBook = function(bookTitle,userName) {
@@ -178,17 +175,22 @@ app.controller('bookController', function($scope, $http, $location, Authenticati
         };
         
         $scope.loadProfile = function () {
-          $http.get('/api/profile/'+$scope.currentUser.email)
+          $http.get('/api/profile/'+ $scope.currentUser.email)
           .then(function(response) {
-            console.log(response);
             $scope.user = response.data;
+          });
+        };
+        
+        $scope.getUsersInfo = function (email, index) {
+          $http.get('/api/profile/'+ email)
+          .then(function(response) {
+            $scope.users[index] = response.data;
           });
         };
         
         $scope.saveProfile = function () {
           $http.post('/api/profile/'+$scope.currentUser.email, $scope.user)
           .then(function(response) {
-            console.log(response);
             $scope.user = response.data;
           });
         };        
