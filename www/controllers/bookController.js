@@ -142,7 +142,7 @@ app.controller('bookController', function($scope, $http, $location, Authenticati
             var data = response.data;
             console.log(data);
             if(typeof data === "string" && data.indexOf('already') > -1) {
-              alert(data);
+              alert(data.message);
             }
             else {
               alert(data.message);
@@ -156,11 +156,10 @@ app.controller('bookController', function($scope, $http, $location, Authenticati
         $scope.logIn = function(user) {
           Authentication.authenticate(user)    
           .error(function(err){
-            alert(err);
+            alert(err.message);
           })
           .then(function(response){
             var data = response.data;
-            console.log(data);
             alert(data.message);
             Authentication.saveToken(data.token);
             $location.path('/');
