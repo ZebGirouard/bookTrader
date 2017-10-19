@@ -4,7 +4,7 @@
         <div class="bookCover" ng-repeat="book in books">
             <a>
                 <img ng-src="{{book.volumeInfo.imageLinks.thumbnail}}" alt="{{book.volumeInfo.title}}">
-                <button ng-hide="!isLoggedIn || book.requester || book.addedBy==currentUser.email" class="inner-button" ng-click="requestBook(book,currentUser)">Request</button>
+                <button ng-show="isLoggedIn && !book.requester && book.addedBy!=currentUser.email" class="inner-button" ng-click="requestBook(book,$index,currentUser)">Request</button>
             </a>
         </div>
     </div>    

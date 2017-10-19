@@ -5,6 +5,8 @@ var path = process.cwd();
 var BookHandler = require(path + '/www/controllers/bookHandler.js');
 var UserHandler = require(path + '/www/controllers/userHandler.js')
 
+console.log(process.env.MY_SECRET);
+
 var auth = jwt({
   secret: process.env.MY_SECRET,
   userProperty: 'payload'

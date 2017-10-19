@@ -19,3 +19,10 @@
     filter: alpha(opacity=20);
     opacity: .9;
 }
+
+body {
+padding-top: 60px;
+}
+.relative {
+position: relative;
+}

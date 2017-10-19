@@ -38,16 +38,20 @@ function BookHandler() {
 				        }*/
 				        // If everything checks out, add stock to list and chart
 				        //else {
-				        	var response = JSON.parse(fullResponse).items[0];
-				        	response.addedBy = userName;
-				        	console.log(response);
-							var book = new Books(response);
-							console.log(book);
-							book.save(function (err, data) {
-							    console.log("Saving book...");
-								if (err) throw(err);
-								else res.json('Saved : ' + data );
-							});			        	
+				        	if (JSON.parse(fullResponse).items) {
+				        		var response = JSON.parse(fullResponse).items[0];
+        	        	response.addedBy = userName;
+        	        	console.log(response);
+		        				var book = new Books(response);
+		        				console.log(book);
+		        				book.save(function (err, data) {
+		        				  console.log("Saving book...");
+		        					if (err) res.json(err);
+		        					else res.json( data );
+		        				});		
+				        	}	else {
+				        		res.json ({message: 'No book found'});
+				        	}      	
 				       // }
 				    });
 				}).on('error', function(e) {

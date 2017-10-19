@@ -12,7 +12,7 @@ function UserHandler() {
 			}	
 			else {
 				var user = new User();
-				
+				console.log(req.body);
 				user.email = req.body.email;
 				
 				user.setPassword(req.body.password);

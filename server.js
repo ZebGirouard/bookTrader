@@ -1,6 +1,9 @@
 //
 // A simple book trading app
 //
+
+require('dotenv').config();
+
 var http = require('http'),
   path = require('path'),
   mongoose = require("mongoose"),

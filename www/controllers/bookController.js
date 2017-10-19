@@ -3,7 +3,8 @@ app.config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'templates/allBooks.html'
+        templateUrl: 'templates/allBooks.html',
+        controller: 'bookController'
       })
       .when('/signup', {
         templateUrl: 'templates/signup.html'
@@ -12,7 +13,8 @@ app.config(['$routeProvider', '$locationProvider',
         templateUrl: 'templates/login.html'
       })      
       .when('/myBooks', {
-        templateUrl: 'templates/myBooks.html'
+        templateUrl: 'templates/myBooks.html',
+        controller: 'bookController'
       })
       .when('/profile', {
         templateUrl: 'templates/profile.html'
@@ -98,12 +100,17 @@ app.controller('bookController', function($scope, $http, $location, Authenticati
         $scope.initSite = function() {
           $scope.setStatus();
           $scope.users = [];
+          $scope.getBooks();
         };
 
-        $scope.addBook = function(bookTitle,userName) {
-          $http.post('/api/newBook/'+bookTitle+'/'+userName)
+        $scope.addBook = function(userName) {
+          $http.post('/api/newBook/'+$scope.bookTitle+'/'+userName)
           .then(function(response) {
             console.log(response);
+            $scope.bookTitle = "";
+            if(response.data.addedBy) {
+              $scope.books.push(response.data);
+            }
           });
         };
         
@@ -114,20 +121,22 @@ app.controller('bookController', function($scope, $http, $location, Authenticati
           });
         };
 
-        $scope.requestBook = function(book, user) {
+        $scope.requestBook = function(book, index, user) {
           console.log(book);
           console.log(user);
           $http.post('/api/requestBook/'+book._id+'/'+user.email)
           .then(function(response) {
+            $scope.books[index] = response.data;
             console.log(response.data);
           });
         };
 
-        $scope.acceptTrade = function(book) {
+        $scope.acceptTrade = function(book,index) {
           console.log(book);
           $http.post('/api/acceptTrade/'+book._id)
           .then(function(response) {
             console.log(response.data);
+            $scope.books[index] = response.data;
           });
         };
         

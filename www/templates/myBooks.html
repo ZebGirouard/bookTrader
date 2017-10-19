@@ -1,4 +1,4 @@
-  <div ng-init="getBooks()">
+  <div>
     <h1 class="page-header">My Books:</h1>
     <h4 ng-hide="isLoggedIn">Please log in or sign up to view your books.</h4>
     <div class="col-lg-12 bookList" ng-show="isLoggedIn">
@@ -6,7 +6,7 @@
       <div class="bookCover" ng-repeat="book in books | filter:{addedBy: currentUser.email} track by $index">
         <a>
           <img ng-src="{{book.volumeInfo.imageLinks.thumbnail}}" alt="{{book.volumeInfo.title}}">
-          <button ng-show="book.requester && !book.accepted" class="inner-button" ng-click="acceptTrade(book)">Accept</button>
+          <button ng-show="book.requester && !book.accepted" class="inner-button" ng-click="acceptTrade(book,$index)">Accept</button>
           <button ng-show="book.accepted" class="inner-button" onclick="alert('Did you send it yet?');">Accepted</button>
         </a>
         <div ng-show="book.requester" ng-init="getUsersInfo(book.requester, $index)">
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>  
-    <form ng-submit="addBook(bookTitle,currentUser.email)" ng-show="isLoggedIn">
+    <form ng-submit="addBook(currentUser.email)" ng-show="isLoggedIn">
       <div class="input-append span7">
         <input type="text" class="span6" ng-model="bookTitle" placeholder="Add Book">
         <input type="submit" class="span1 btn btn-primary" value="Add" ng-disabled="!bookTitle">
@@ -24,7 +24,7 @@
     <br>
     <hr>
     <h1 class="page-header">My Requests:</h1>
-    <div class="col-lg-12 bookList" ng-init="getBooks()" ng-show="isLoggedIn">
+    <div class="col-lg-12 bookList" ng-show="isLoggedIn">
       <div class="bookCover" ng-repeat="book in books | filter:{requester: currentUser.email}">
         <a>
           <img ng-src="{{book.volumeInfo.imageLinks.thumbnail}}" alt="{{book.volumeInfo.title}}">
